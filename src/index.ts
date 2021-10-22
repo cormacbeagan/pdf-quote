@@ -47,7 +47,7 @@ const createQuote = (jsonData: IData): void => {
   doc.setFont("KanitLight", "normal");
   doc.setFontSize(12);
   doc.text(
-    "Thank you for our interest in starting a collaberation. ",
+    "Thank you for our interest in starting a collaberation. Please find the detailed implementation and costing below.",
     margins.left,
     posY,
     {
@@ -60,7 +60,7 @@ const createQuote = (jsonData: IData): void => {
   doc.setFont("KanitLight", "normal");
   posY += 15;
   doc.text(
-    `Please quote your company name and the invoice number with the transfer`,
+    `This quote is valid for 30 days from the day of receipt`,
     margins.left,
     posY + 5,
     { maxWidth: margins.pageWidth - 40 }
