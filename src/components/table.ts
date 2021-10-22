@@ -5,55 +5,57 @@ import { colors } from "resources/colors/colors";
 
 const drawTable = (doc: jsPDF, y: number, data: IWork[]): number => {
   const tableColumns = {
-    first: margins.left + 15,
-    second: margins.middle,
-    third: margins.middle + 18,
-    fourth: margins.posRight - 25,
+    first: margins.left + 25,
+    second: margins.left + 37,
+    third: margins.middle - 30,
+    fourth: margins.middle + 5,
   };
   let posY = y;
   // line
   doc.setDrawColor(colors.grey);
   doc.setLineWidth(0.3);
-  doc.line(margins.left, posY, margins.posRight, posY);
-  posY += 5;
-  doc.setFont("KanitMedium", "normal");
-  doc.setFontSize(12);
-  doc.text("Pos.", margins.left, posY);
-  doc.text("Description", tableColumns.first, posY);
-  doc.text("Amount", tableColumns.second, posY);
-  doc.text("Single", tableColumns.fourth, posY, { align: "right" });
-  doc.text("Total", margins.posRight, posY, { align: "right" });
-  posY += 2;
-  doc.line(margins.left, posY, margins.posRight, posY);
-  posY += 8;
+  // doc.line(margins.left, posY, margins.posRight, posY);
 
-  // table entries
-  let pos = 1;
-  data.forEach((item) => {
-    doc.text(`${pos}`, margins.left + 3, posY, { align: "right" });
-    doc.text(item.description, tableColumns.first + 3, posY);
-    doc.text(`${item.hours} hrs`, tableColumns.second + 3, posY);
-    doc.text(
-      `${item.currency === "euro" ? "€" : "£"}${item.rate.toFixed(2)}`,
-      tableColumns.fourth,
-      posY,
-      { align: "right" }
-    );
-    let total = (item.rate * item.hours).toFixed(2);
-    doc.text(
-      `${item.currency === "euro" ? "€" : "£"}${total}`,
-      margins.posRight,
-      posY,
-      { align: "right" }
-    );
+  data.forEach((workItem) => {
     posY += 5;
-    pos += 1;
+    doc.setFont("KanitMedium", "normal");
+    doc.setFontSize(12);
+    doc.text(workItem.stage, margins.left, posY);
+    doc.text("Cost: ", tableColumns.first, posY);
+    doc.text(
+      `${workItem.currency === "euro" ? "€" : "£"}${workItem.cost}`,
+      tableColumns.second,
+      posY
+    );
+    doc.text("Estimated Time: ", tableColumns.third, posY);
+    doc.text(workItem.estimatedTime, tableColumns.fourth, posY);
+    posY += 2;
+    doc.line(margins.left, posY, margins.posRight, posY);
+    posY += 8;
+
+    doc.setFont("KanitLight", "normal");
+    doc.setFontSize(15);
+    doc.setTextColor(colors.blue);
+
+    doc.text(workItem.title, margins.left, posY);
+
+    posY += 8;
+    doc.setFontSize(11);
+    doc.setTextColor(colors.dark);
+
+    doc.text(workItem.description, margins.left, posY, {
+      maxWidth: margins.pageWidth - margins.left * 2,
+    });
+    posY += doc.getTextDimensions(workItem.description, {
+      maxWidth: margins.pageWidth - margins.left * 2,
+    }).h;
   });
 
   doc.line(margins.left, posY, margins.posRight, posY);
   posY += 8;
+  doc.setFont("KanitMedium", "normal");
   let totalCost: number = 0;
-  data.forEach((item) => (totalCost += item.rate * item.hours));
+  data.forEach((item) => (totalCost += item.cost));
   doc.text("Total", tableColumns.fourth, posY, { align: "right" });
   doc.text(
     `${data[0].currency === "euro" ? "€" : "£"}${totalCost.toFixed(2)}`,

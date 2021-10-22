@@ -7,11 +7,12 @@ export interface IData {
 }
 
 export interface IWork {
-  stage: number;
+  stage: string;
   cost: number;
   currency: string;
   title: string;
   description: string;
+  estimatedTime: string;
 }
 
 export interface IClient {

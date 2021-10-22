@@ -20,6 +20,7 @@ export const margins = {
   pageHeight: 297,
   middle: 210 / 2,
   quarter: (210 - 40) / 4,
+  third: (210 - 40) / 3,
 };
 
 const createQuote = (jsonData: IData): void => {
@@ -41,6 +42,7 @@ const createQuote = (jsonData: IData): void => {
   posY += 5;
 
   posY = drawAddress(doc, posX + 5, posY, jsonData.client);
+  posY += 15;
 
   doc.setFont("KanitLight", "normal");
   doc.setFontSize(12);
@@ -54,7 +56,6 @@ const createQuote = (jsonData: IData): void => {
   );
   posY += 10;
   posY = drawTable(doc, posY, jsonData.work);
-  posY += 20;
   doc.setFontSize(12);
   doc.setFont("KanitLight", "normal");
   posY += 15;
