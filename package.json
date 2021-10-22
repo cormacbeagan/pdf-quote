@@ -1,6 +1,6 @@
 {
-  "name": "macs-pdf-invoice",
-  "version": "1.0.2",
+  "name": "macs-pdf-quote",
+  "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
   "scripts": {

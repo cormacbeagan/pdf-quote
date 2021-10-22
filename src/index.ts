@@ -6,9 +6,8 @@ import { IData } from "data/dataTypes";
 import drawAddress from "components/address";
 import drawOwnAddress from "components/ownAddress";
 import { colors } from "resources/colors/colors";
-import drawInvoiceDetails from "components/invoiceDetails";
 import drawTable from "components/table";
-import drawBankDetails from "components/bankDetails";
+import data from "../testData.json";
 
 export const margins = {
   top: 22,
@@ -23,7 +22,7 @@ export const margins = {
   quarter: (210 - 40) / 4,
 };
 
-const createInvoice = (jsonData: IData): void => {
+const createQuote = (jsonData: IData): void => {
   const doc: jsPDF = new jsPDF({
     orientation: "p",
     unit: "mm",
@@ -43,12 +42,10 @@ const createInvoice = (jsonData: IData): void => {
 
   posY = drawAddress(doc, posX + 5, posY, jsonData.client);
 
-  drawInvoiceDetails(doc, posY, jsonData.invoiceDetails);
-  posY += 15;
   doc.setFont("KanitLight", "normal");
   doc.setFontSize(12);
   doc.text(
-    "Thank you for our working collaberation - as per our agreement I am sending you the following invoice.",
+    "Thank you for our interest in starting a collaberation. ",
     margins.left,
     posY,
     {
@@ -60,24 +57,16 @@ const createInvoice = (jsonData: IData): void => {
   posY += 20;
   doc.setFontSize(12);
   doc.setFont("KanitLight", "normal");
-  doc.text(
-    "Payment is due within 14 days of receipt of this invoice and should be paid in full to the following bank account:",
-    margins.left,
-    posY,
-    {
-      maxWidth: margins.pageWidth - 40,
-    }
-  );
   posY += 15;
-  posY = drawBankDetails(doc, posY, jsonData.bankDetails);
-
   doc.text(
-    `Please quote your company name and the invoice number with the transfer (${jsonData.client.name}-${jsonData.invoiceDetails.invoiceNr})`,
+    `Please quote your company name and the invoice number with the transfer`,
     margins.left,
     posY + 5,
     { maxWidth: margins.pageWidth - 40 }
   );
-  doc.save(`${jsonData.client.name}-${jsonData.invoiceDetails.invoiceNr}.pdf`);
+  doc.save(`Mac-Beagan-Quote.pdf`);
 };
 
-export default createInvoice;
+createQuote(data);
+
+export default createQuote;

@@ -2,27 +2,21 @@ export interface IData {
   title: string;
   work: IWork[];
   client: IClient;
-  invoiceDetails: IInvoiceDetails;
   ownDetails: IOwnDetails;
   bankDetails: IBankDetails;
 }
 
 export interface IWork {
-  hours: number;
-  rate: number;
+  stage: number;
+  cost: number;
   currency: string;
+  title: string;
   description: string;
 }
 
 export interface IClient {
   name: string;
   address: IAddress;
-}
-
-export interface IInvoiceDetails {
-  date: string;
-  supplyDate: string;
-  invoiceNr: string;
 }
 
 export interface IOwnDetails {
