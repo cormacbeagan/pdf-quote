@@ -8,6 +8,8 @@ import drawOwnAddress from "components/ownAddress";
 import { colors } from "resources/colors/colors";
 import drawTable from "components/table";
 
+import data from "../testData.json";
+
 export const margins = {
   top: 22,
   left: 20,
@@ -66,5 +68,7 @@ const createPDFQuote = (jsonData: IData): void => {
   );
   doc.save(`Mac-Beagan-Quote.pdf`);
 };
+
+createPDFQuote(data);
 
 export default createPDFQuote;

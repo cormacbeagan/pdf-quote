@@ -27,7 +27,7 @@ const drawTable = (doc: jsPDF, y: number, data: IWork[]): number => {
       tableColumns.second,
       posY
     );
-    doc.text("Estimated Time: ", tableColumns.third, posY);
+    doc.text("Timeline: ", tableColumns.third, posY);
     doc.text(workItem.estimatedTime, tableColumns.fourth, posY);
     posY += 2;
     doc.line(margins.left, posY, margins.posRight, posY);
@@ -54,15 +54,26 @@ const drawTable = (doc: jsPDF, y: number, data: IWork[]): number => {
   doc.line(margins.left, posY, margins.posRight, posY);
   posY += 8;
   doc.setFont("KanitMedium", "normal");
-  let totalCost: number = 0;
-  data.forEach((item) => (totalCost += item.cost));
-  doc.text("Total", tableColumns.fourth, posY, { align: "right" });
-  doc.text(
-    `${data[0].currency === "euro" ? "€" : "£"}${totalCost.toFixed(2)}`,
-    margins.posRight,
-    posY,
-    { align: "right" }
-  );
+  let totalFixedCost: number = 0;
+  let totalMonthlyCost: number = 0;
+  data.forEach((item) => {
+    if (item.costType === "fixed") totalFixedCost += item.cost;
+    else if (item.costType === "monthly") totalMonthlyCost += item.cost;
+  });
+  const totalText =
+    totalMonthlyCost > 0 && totalFixedCost === 0 ? "Monthly Total" : "Total";
+  const totalCost =
+    totalMonthlyCost > totalFixedCost ? totalMonthlyCost : totalFixedCost;
+  if (!(totalMonthlyCost === 0 && totalFixedCost === 0)) {
+    doc.text(totalText, tableColumns.fourth, posY, { align: "right" });
+
+    doc.text(
+      `${data[0].currency === "euro" ? "€" : "£"}${totalCost.toFixed(2)}`,
+      margins.posRight,
+      posY,
+      { align: "right" }
+    );
+  }
   posY += 5;
   doc.setDrawColor(colors.blue);
   doc.line(tableColumns.third, posY, margins.posRight, posY);

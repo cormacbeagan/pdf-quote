@@ -3,5 +3,6 @@
 node_modules/
 lib/
 testData.json
+testData-monthly.json
 
 *.pdf

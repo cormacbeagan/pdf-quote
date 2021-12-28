@@ -6,6 +6,8 @@ export interface IData {
   bankDetails: IBankDetails;
 }
 
+type CostType = "hourly" | "monthly" | "fixed";
+
 export interface IWork {
   stage: string;
   cost: number;
@@ -13,6 +15,7 @@ export interface IWork {
   title: string;
   description: string;
   estimatedTime: string;
+  costType: CostType | string;
 }
 
 export interface IClient {
