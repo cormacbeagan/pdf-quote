@@ -40,6 +40,15 @@ const createPDFQuote = (jsonData: IData): void => {
 
   posY += 15;
   drawOwnAddress(doc, posX + 5, posY, jsonData.ownDetails);
+  doc.setFontSize(10);
+  doc.setTextColor(colors.blue);
+  doc.setFont("KanitMedium", "normal");
+  doc.text(new Date().toLocaleDateString(), margins.posRight - 5, posY, {
+    align: "right",
+  });
+  doc.setFontSize(12);
+  doc.setTextColor(colors.dark);
+
   posY += 5;
 
   posY = drawAddress(doc, posX + 5, posY, jsonData.client);
@@ -56,7 +65,7 @@ const createPDFQuote = (jsonData: IData): void => {
     }
   );
   posY += 10;
-  posY = drawTable(doc, posY, jsonData.work);
+  posY = drawTable(doc, posY, jsonData.work, jsonData);
   doc.setFontSize(12);
   doc.setFont("KanitLight", "normal");
   posY += 15;
@@ -66,7 +75,7 @@ const createPDFQuote = (jsonData: IData): void => {
     posY + 5,
     { maxWidth: margins.pageWidth - 40 }
   );
-  doc.save(`Mac-Beagan-Quote.pdf`);
+  doc.save(`Daysix EPR Int Quote.pdf`);
 };
 
 createPDFQuote(data);

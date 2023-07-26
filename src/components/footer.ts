@@ -38,6 +38,11 @@ const drawFooter = (doc: jsPDF, data: IData) => {
   doc.text(`Email: ${data.ownDetails.email}`, posX, posY, { align: "center" });
   posY += lineHeight;
   doc.text(`Web: ${data.ownDetails.homepage}`, posX, posY, { align: "center" });
+  posY += lineHeight;
+  doc.text(`St. -Nr. / Tax Nr. : ${data.ownDetails.steuerId}`, posX, posY, {
+    align: "center",
+  });
+
   posY = margins.posBottom + 10;
   posX = margins.pageWidth - margins.right;
 

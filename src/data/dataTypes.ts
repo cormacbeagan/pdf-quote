@@ -30,6 +30,7 @@ export interface IOwnDetails {
   tel: string;
   email: string;
   homepage: string;
+  steuerId: string;
 }
 
 export interface IAddress {

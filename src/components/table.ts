@@ -1,9 +1,15 @@
-import { IWork } from "data/dataTypes";
+import { IData, IWork } from "data/dataTypes";
 import { margins } from "../index";
 import jsPDF from "jspdf";
 import { colors } from "resources/colors/colors";
+import { checkPageHeight } from "./page";
 
-const drawTable = (doc: jsPDF, y: number, data: IWork[]): number => {
+const drawTable = (
+  doc: jsPDF,
+  y: number,
+  data: IWork[],
+  jsonData: IData
+): number => {
   const tableColumns = {
     first: margins.left + 25,
     second: margins.left + 37,
@@ -18,6 +24,7 @@ const drawTable = (doc: jsPDF, y: number, data: IWork[]): number => {
 
   data.forEach((workItem) => {
     posY += 5;
+    posY = checkPageHeight(posY, doc, jsonData);
     doc.setFont("KanitMedium", "normal");
     doc.setFontSize(12);
     doc.text(workItem.stage, margins.left, posY);
@@ -34,12 +41,12 @@ const drawTable = (doc: jsPDF, y: number, data: IWork[]): number => {
     posY += 8;
 
     doc.setFont("KanitLight", "normal");
-    doc.setFontSize(15);
+    doc.setFontSize(12);
     doc.setTextColor(colors.blue);
 
     doc.text(workItem.title, margins.left, posY);
 
-    posY += 8;
+    posY += 6;
     doc.setFontSize(11);
     doc.setTextColor(colors.dark);
 
