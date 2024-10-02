@@ -57,7 +57,7 @@ const createPDFQuote = (jsonData: IData): void => {
   doc.setFont("KanitLight", "normal");
   doc.setFontSize(12);
   doc.text(
-    "Thank you for our interest in starting a collaberation. Please find the detailed implementation and costing below.",
+    "Thank you for your interest in starting a collaberation. Please find the detailed implementation and costing below.",
     margins.left,
     posY,
     {
@@ -75,7 +75,7 @@ const createPDFQuote = (jsonData: IData): void => {
     posY + 5,
     { maxWidth: margins.pageWidth - 40 }
   );
-  doc.save(`Daysix EPR Int Quote.pdf`);
+  doc.save(`Mac Beagan Development Quote.pdf`);
 };
 
 createPDFQuote(data);

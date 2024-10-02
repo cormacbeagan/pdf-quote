@@ -15,6 +15,10 @@ const drawAddress = (doc: jsPDF, x: number, y: number, data: IClient) => {
   posY += lineHeight;
   doc.text(data.address.line2, posX, posY);
   posY += lineHeight;
+  if (data.address.line3) {
+    doc.text(data.address.line3, posX, posY);
+    posY += lineHeight;
+  }
   doc.text(data.address.postcode, posX, posY);
   posY += lineHeight;
   doc.text(data.address.country, posX, posY);
