@@ -52,7 +52,7 @@ const createPDFQuote = (jsonData: IData): void => {
   posY += 5;
 
   posY = drawAddress(doc, posX + 5, posY, jsonData.client);
-  posY += 15;
+  posY += 10;
 
   doc.setFont("KanitLight", "normal");
   doc.setFontSize(12);
@@ -69,6 +69,18 @@ const createPDFQuote = (jsonData: IData): void => {
   doc.setFontSize(12);
   doc.setFont("KanitLight", "normal");
   posY += 15;
+
+  if (jsonData.disclaimer) {
+    doc.text(jsonData.disclaimer, margins.left, posY + 5, {
+      maxWidth: margins.pageWidth - 40,
+    });
+    posY += doc.getTextDimensions(jsonData.disclaimer, {
+      maxWidth: margins.pageWidth - margins.left * 2,
+    }).h;
+  }
+
+  posY += 4;
+  doc.setFont("KanitMedium", "normal");
   doc.text(
     `This quote is valid for 30 days from the day of receipt`,
     margins.left,

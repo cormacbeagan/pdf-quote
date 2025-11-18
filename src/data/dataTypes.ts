@@ -1,5 +1,6 @@
 export interface IData {
   title: string;
+  disclaimer?: string;
   work: IWork[];
   client: IClient;
   ownDetails: IOwnDetails;
@@ -13,7 +14,7 @@ export interface IWork {
   cost: number;
   currency: string;
   title: string;
-  description: string;
+  description: string | string[];
   estimatedTime: string;
   costType: CostType | string;
 }

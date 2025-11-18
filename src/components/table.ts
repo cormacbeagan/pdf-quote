@@ -53,11 +53,15 @@ const drawTable = (
     doc.text(workItem.description, margins.left, posY, {
       maxWidth: margins.pageWidth - margins.left * 2,
     });
-    posY += doc.getTextDimensions(workItem.description, {
-      maxWidth: margins.pageWidth - margins.left * 2,
-    }).h;
+    posY +=
+      doc.getTextDimensions(workItem.description[0], {
+        maxWidth: margins.pageWidth - margins.left * 2,
+      }).h *
+      (Array.isArray(workItem.description)
+        ? workItem.description.length + 1
+        : 1);
   });
-
+  posY += 4;
   doc.line(margins.left, posY, margins.posRight, posY);
   posY += 8;
   doc.setFont("KanitMedium", "normal");
